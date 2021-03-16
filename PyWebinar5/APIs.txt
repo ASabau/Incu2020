@@ -1,0 +1,75 @@
+1. curl command(s) to obtain list of devices for ACI ( ACI sandbox: https://sandboxapicem.cisco.com/ username: devnetuser, password: Cisco123!)
+
+- generate ACI sandbox service Ticket
+
+curl -X POST \
+  https://sandboxapicem.cisco.com/api/v1/ticket \
+  -H 'authorization: Basic ZGV2bmV0dXNlcjpDaXNjbzEyMyE=' \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -H 'postman-token: ae6423cf-3a09-5319-b06a-4403cd7e9fce' \
+  -d ' {
+ "username" : "devnetuser",
+ "password" : "Cisco123!"
+ }'
+ 
+ 
+ - get list of devices
+ 
+ curl -X GET \
+  https://sandboxapicem.cisco.com/api/v1/network-device \
+  -H 'authorization: Basic e3t1c2VybmFtZX19Ont7cGFzc3dvcmR9fQ==' \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -H 'postman-token: a4bb45ec-600b-b732-96c6-fd02c6021f1f' \
+  -H 'x-auth-token: ST-3160-DgnJ2KvAKN96CAZkVxgQ-cas'
+  
+
+2. curl command(s) to obtain list of clients from DNA (DNA sandbox: https://sandboxdnac.cisco.com, username: devnetuser, password: Cisco123!)
+
+- get a DNA authentication token, which we can use to authenticate all our subsequent API calls
+
+curl -X POST \
+  https://sandboxdnac.cisco.com:443/api/system/v1/auth/token \
+  -H 'authorization: Basic ZGV2bmV0dXNlcjpDaXNjbzEyMyE=' \
+  -H 'cache-control: no-cache' \
+  -H 'postman-token: d54762f5-762f-bf0c-8682-6396fb4f2b77'
+  
+
+- get a list of clients (hosts)
+
+curl -X GET \
+  https://sandboxdnac.cisco.com:443/api/v1/host \
+  -H 'cache-control: no-cache' \
+  -H 'postman-token: d22fdb52-886d-ecf5-6a0f-de6328c95a81' \
+  -H 'x-auth-token: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MDJjMGUyODE0NzEwYTIyZDFmN2UxNzIiLCJhdXRoU291cmNlIjoiaW50ZXJuYWwiLCJ0ZW5hbnROYW1lIjoiVE5UMCIsInJvbGVzIjpbIjYwMmJlYmU1MTQ3MTBhMDBjOThmYTQwOSJdLCJ0ZW5hbnRJZCI6IjYwMmJlYmU1MTQ3MTBhMDBjOThmYTQwMiIsImV4cCI6MTYxNTkxNDI3NiwiaWF0IjoxNjE1OTEwNjc2LCJqdGkiOiI2MDAwNWU1Ny0zNDZhLTQ2ZjEtYWQ0ZC1hZmI2OGU1OGQwOTIiLCJ1c2VybmFtZSI6ImRldm5ldHVzZXIifQ.LCtf59hIg0vVZ_jtPy_8XjOu6LmtVGvN20XQS47zm3M-hpkXTZWBqyXxlf38MPGFdB-mAaO3pH8J6HzII4lA7Yo-32RIBuQaUG8CfOxUp5QJuORJ6w0b0Cwx2ay5jeLterVidcE8mC4xdEOncAlzT_Tv8NaQOXi9565HbpHuSbqu2heDOcmWZsLN_5pf49z-q7y4a62ClxAgh_VOC3_GSYPwfJPMd-YvXC6c4Qygw0f3iIiZr55_irbBDvx4MmgJxnC4_OOC_UY-oI_3dDqnQ6T8wSny2hwwmUve2xceQcfWXnQOEc5ZO4Lsmnf48Tf34twsMErA0Z7VPLAEePjBWA'
+
+
+- get network device list
+
+curl -X GET \
+  https://sandboxdnac.cisco.com:443/dna/intent/api/v1/network-device \
+  -H 'cache-control: no-cache' \
+  -H 'postman-token: 9b82ce4e-127d-c279-36ba-fecbc3c57a69' \
+  -H 'x-auth-token: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MDJjMGUyODE0NzEwYTIyZDFmN2UxNzIiLCJhdXRoU291cmNlIjoiaW50ZXJuYWwiLCJ0ZW5hbnROYW1lIjoiVE5UMCIsInJvbGVzIjpbIjYwMmJlYmU1MTQ3MTBhMDBjOThmYTQwOSJdLCJ0ZW5hbnRJZCI6IjYwMmJlYmU1MTQ3MTBhMDBjOThmYTQwMiIsImV4cCI6MTYxNTkxNDI3NiwiaWF0IjoxNjE1OTEwNjc2LCJqdGkiOiI2MDAwNWU1Ny0zNDZhLTQ2ZjEtYWQ0ZC1hZmI2OGU1OGQwOTIiLCJ1c2VybmFtZSI6ImRldm5ldHVzZXIifQ.LCtf59hIg0vVZ_jtPy_8XjOu6LmtVGvN20XQS47zm3M-hpkXTZWBqyXxlf38MPGFdB-mAaO3pH8J6HzII4lA7Yo-32RIBuQaUG8CfOxUp5QJuORJ6w0b0Cwx2ay5jeLterVidcE8mC4xdEOncAlzT_Tv8NaQOXi9565HbpHuSbqu2heDOcmWZsLN_5pf49z-q7y4a62ClxAgh_VOC3_GSYPwfJPMd-YvXC6c4Qygw0f3iIiZr55_irbBDvx4MmgJxnC4_OOC_UY-oI_3dDqnQ6T8wSny2hwwmUve2xceQcfWXnQOEc5ZO4Lsmnf48Tf34twsMErA0Z7VPLAEePjBWA'
+
+
+3. curl command(s) to obtain list of hosts in Meraki for organization with  "name": "DevNet Sandbox" and network with  
+"name": "DevNet Sandbox ALWAYS ON"( Meraki base URL: https://api.meraki.com/api/v0 (Links to an external site.),  Meraki API-Key: 6bec40cf957de430a6f1f2baa056b99a4fac9ea0)
+
+- get all the organizations to which the user has access. They are needed to find the two organizations specified above
+
+curl -X GET \
+  https://api.meraki.com/api/v0/organizations \
+  -H 'cache-control: no-cache' \
+  -H 'postman-token: bc451d88-0e48-3ee6-a2f5-75214088a2db' \
+  -H 'x-cisco-meraki-api-key: 6bec40cf957de430a6f1f2baa056b99a4fac9ea0'
+  
+
+- get the list of hosts from the "DevNet Sandbox" organization, which has the id = 549236
+
+curl -X GET \
+  https://api.meraki.com/api/v0/organizations/549236/inventory \
+  -H 'cache-control: no-cache' \
+  -H 'postman-token: 59736322-53b9-7cae-626c-28e7b0747ced' \
+  -H 'x-cisco-meraki-api-key: 6bec40cf957de430a6f1f2baa056b99a4fac9ea0'
